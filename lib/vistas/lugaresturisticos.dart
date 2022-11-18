@@ -55,7 +55,7 @@ class _LugaresTuristicosState extends State<lugaresturisticos> {
             color: Colors.white,
             margin: EdgeInsets.only(top:5),
             child: ListTile(
-              title: Text('Titulo del list'),
+              title: Text('Monserrate'),
               subtitle: Text('Contenido'),
               leading: Icon(
                 Icons.add_location_alt_sharp,

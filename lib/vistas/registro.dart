@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:turistbogota/vistas/lugaresturisticos.dart';
+import 'package:turistbogota/vistas/registrobdusuario.dart';
 import 'package:turistbogota/vistas/tituloprincipal.dart';
 import 'package:turistbogota/repository/registrousuariofirebase.dart';
 
@@ -19,6 +20,41 @@ class _RegistroState extends State<Registro> {
   final clave = TextEditingController();
   String usu= "";
   String cla= "";
+  void registrarUsuario() async{
+    usu = usuario.text;
+    cla = clave.text;
+    final datos = await objetoRegistroUsuarioFB.registrarusuario(usu, cla);
+    print(datos);
+    if(datos=="weak-password"){
+      Fluttertoast.showToast(msg: "La contraseña debe tener minimo 6 caracteres",
+          toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
+    }
+    else if (datos == "email-already-in-use"){
+      Fluttertoast.showToast(msg: "E-mail ya existe, ingrese uno diferente",
+          toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
+    }
+    else if (datos == "invalid-email"){
+      Fluttertoast.showToast(msg: "Revise si el e-mail cumple requisitos, @ y sin caracteres",
+          toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
+    }
+    else if (datos == "Network-request-failed"){
+      Fluttertoast.showToast(msg: "Fallo en la conexión de internet",
+          toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
+    }
+    else if (datos == "user-not-found"){
+      Fluttertoast.showToast(msg: "Usuario no encontrado",
+          toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
+    }
+    else{
+      var pk = datos;
+      Fluttertoast.showToast(msg: "Datos registrados", toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistroBDUsuario(pk)));
+      print('Datos de la PK ${pk}');
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -111,35 +147,8 @@ class _RegistroState extends State<Registro> {
 
       ),
       ),
-      onPressed: ()async {
-        usu = usuario.text;
-        cla = clave.text;
-        final datos = await objetoRegistroUsuarioFB.registrarusuario(usu, cla);
-        print(datos);
-        if(datos=="weak-password"){
-          Fluttertoast.showToast(msg: "La contraseña debe tener minimo 6 caracteres",
-              toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
-        }
-        else if (datos == "email-already-in-use"){
-          Fluttertoast.showToast(msg: "E-mail ya existe, ingrese uno diferente",
-              toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
-        }
-        else if (datos == "invalid-email"){
-          Fluttertoast.showToast(msg: "Revise si el e-mail cumple requisitos, @ y sin caracteres",
-          toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
-        }
-        else if (datos == "Network-request-failed"){
-          Fluttertoast.showToast(msg: "Fallo en la conexión de internet",
-          toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
-        }
-        else if (datos == "user-not-found"){
-          Fluttertoast.showToast(msg: "Usuario no encontrado",
-              toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER);
-        }
-        else{
-          Fluttertoast.showToast(msg: "Datos registrados", toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER);
-        }
+      onPressed: () {
+      registrarUsuario();
       }
           );
         }

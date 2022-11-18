@@ -97,7 +97,7 @@ class _VistaPrincipalState extends State<VistaPrincipal> {
       ),
       ),
       onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistroBDUsuario()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Registro()));
         print('Registro');
       },
     );
