@@ -1,4 +1,5 @@
 import 'package:turistbogota/vistas/lugaresturisticos.dart';
+import 'package:turistbogota/vistas/perfilusuario.dart';
 import 'package:turistbogota/vistas/tituloprincipal.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -51,9 +52,9 @@ class _LoginState extends State<Login> {
                   ),
 
             ),
-            margin: EdgeInsets.only(bottom: 20),
+             margin: EdgeInsets.only(bottom: 20),
 
-          ),
+             ),
               txtusuario(),
               txtclave(),
               btnlogin(),
@@ -122,9 +123,10 @@ class _LoginState extends State<Login> {
           final datos = await firebaseAuth.signInWithEmailAndPassword(
               email: usu, password: cla);
           if (datos != null) {
+            var key = (FirebaseAuth.instance.currentUser?.uid);
             print(usu);
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => lugaresturisticos())
+                MaterialPageRoute(builder: (context) => PerfilUsuario(key))
             );
           }
         }catch(e){

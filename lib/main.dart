@@ -1,3 +1,4 @@
+import 'package:turistbogota/vistas/candelaria.dart';
 import 'package:turistbogota/vistas/vistaprincipal.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +29,8 @@ class Inicio extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           //body: ListaMascotas(),
-          body:VistaPrincipal()
+            //body: Candelaria()
+            body:VistaPrincipal()
           //body: Login(),
         ),
         ),

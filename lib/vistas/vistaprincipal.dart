@@ -1,4 +1,5 @@
 import 'package:turistbogota/vistas/registrobdusuario.dart';
+import 'package:turistbogota/vistas/somos.dart';
 import 'package:turistbogota/vistas/tituloprincipal.dart';
 import 'package:turistbogota/vistas/vistalogin.dart';
 import 'package:turistbogota/vistas/registro.dart';
@@ -61,6 +62,7 @@ class _VistaPrincipalState extends State<VistaPrincipal> {
       ),
       onPressed: () {
         print('Boton somos');
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Somos()));
       },
     );
   }
